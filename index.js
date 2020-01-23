@@ -7,6 +7,6 @@ childProc.exec(`./node_modules/.bin/sls ${command}`, (err, stdout, stderr) => {
     console.log(stdout)
     if (err !== null) {
       console.log(stderr)
-      throw
+      throw err
     }
   })
