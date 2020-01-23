@@ -13,7 +13,5 @@ if (wd) {
 
 childProc.exec(`${pathToBin} ${command}`, (err, stdout, stderr) => {
   console.log(stdout)
-  if (err !== null) {
-    throw err
-  }
+  console.log(stderr)
 })
