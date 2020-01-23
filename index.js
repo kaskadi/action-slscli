@@ -9,4 +9,3 @@ childProc.exec(`./node_modules/.bin/sls ${command}`, (error, stdout, stderr) => 
       console.log(`exec error: ${error}`)
     }
   })
-})
