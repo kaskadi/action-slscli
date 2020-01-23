@@ -2,10 +2,10 @@ const childProc = require('child_process')
 
 const command = process.env.INPUT_COMMAND || ''
 
-childProc.exec(`./node_modules/.bin/sls ${command}`, (error, stdout, stderr) => {
+childProc.exec(`${process.cwd()}/node_modules/.bin/sls ${command}`, (err, stdout, stderr) => {
     console.log(stdout)
     console.log(stderr)
-    if (error !== null) {
-      console.log(`exec error: ${error}`)
+    if (err !== null) {
+      throw err
     }
   })
