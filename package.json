@@ -1,0 +1,23 @@
+{
+  "name": "action-slscli",
+  "version": "1.0.0",
+  "description": "a GitHub Action that allows you to use the serverless CLI inside of GitHub Actions",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaskadi/action-slscli.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kaskadi/action-slscli/issues"
+  },
+  "homepage": "https://github.com/kaskadi/action-slscli#readme",
+  "devDependencies": {
+    "serverless": "^1.61.3"
+  }
+}
