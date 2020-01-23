@@ -3,8 +3,11 @@ description: 'Gives user the ability to use the serverless CLI inside of a GitHu
 inputs:
   command:
     description: 'Command we pass to our serverless CLI'
+    required: true
+    default: '--version'
+  working_directory:
+    description: 'Command we pass to our serverless CLI'
     required: false
-    default: ''
 runs:
   using: 'node12'
   main: 'index.js'

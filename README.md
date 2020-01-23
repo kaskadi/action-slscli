@@ -18,6 +18,7 @@ jobs:
       uses: kaskadi/action-slscli@master
       with:
         command: 'whatever command you wanna run!'
+        working_directory: 'the directory you want to execute the serverless cli in'
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_KEY_SECRET }}
