@@ -9,5 +9,4 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Update packages
-      run: ls
-      #bash scripts/update-action.sh
+      run: bash update-action.sh
