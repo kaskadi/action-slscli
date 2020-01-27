@@ -1,18 +1,12 @@
 name: update
-on:
-  schedule:
-    # update every sunday at 7AM
-    - cron:  '0 7 * * 0'
+on: [push]
+  # schedule:
+  #   # update every sunday at 7AM
+  #   - cron:  '0 7 * * 0'
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Update packages
-      run: npm i
-    - name: Commit new files
-      run: |
-        git config --global user.name 'Alexis Lemaire'
-        git config --global user.email 'a.lemaire@klimapartner.de'
-        git commit -am "Updated packages"
-        git push
+      run: ../../update-action.sh

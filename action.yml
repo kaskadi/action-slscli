@@ -6,7 +6,7 @@ inputs:
     required: true
     default: '--version'
   working_directory:
-    description: 'Command we pass to our serverless CLI'
+    description: 'Directory in which we should run the CLI'
     required: false
 runs:
   using: 'node12'
