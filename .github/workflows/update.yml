@@ -9,4 +9,4 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Update packages
-      run: /home/runner/work/_actions/kaskadi/action-slscli/master/update-action.sh
+      run: ./scripts/update-action.sh
