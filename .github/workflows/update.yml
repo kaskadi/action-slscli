@@ -1,8 +1,8 @@
 name: update
-on: [push]
-  # schedule:
-  #   # update every sunday at 7AM
-  #   - cron:  '0 7 * * 0'
+on:
+  schedule:
+    # update every sunday at 7AM
+    - cron:  '0 7 * * 0'
 jobs:
   build:
     runs-on: ubuntu-latest

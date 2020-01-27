@@ -1,3 +1,5 @@
+![](https://img.shields.io/github/workflow/status/kaskadi/action-slscli/update?label=updated)
+
 # What is this action for?
 
 It allows you to use the _Serverless CLI_ inside of GitHub Actions.
