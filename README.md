@@ -8,7 +8,7 @@
 
 **LGTM**
 
-[![](https://img.shields.io/lgtm/grade/javascript/github/kaskadi/action-slscli)](https://lgtm.com/projects/g/kaskadi/action-slscli/?mode=list)
+[![](https://img.shields.io/lgtm/grade/javascript/github/kaskadi/action-slscli?logo=lgtm)](https://lgtm.com/projects/g/kaskadi/action-slscli/?mode=list)
 
 ***
 
