@@ -25,14 +25,14 @@ You are therefore responsible for ensuring that your _Serverless_ configuration 
 You can use the following code as a new _GitHub Actions Workflow_:
 
 ```
-name: YOUR-ACTION-NAME
-on: [YOUR-ACTION-EVENT]
+name: {YOUR-ACTION-NAME}
+on: [{YOUR-ACTION-EVENT}]
 jobs:
-  build:
+  serverless:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: [YOUR-STEP-NAME]
+    - name: [{YOUR-STEP-NAME}]
       uses: kaskadi/action-slscli@master
       with:
         command: 'whatever command you wanna run!'
@@ -46,3 +46,5 @@ Before trying to trigger your new workflow, please set both `AWS_KEY_ID` and `AW
 Those are the credentials of an IAM user which can deploy the necessary resources (can have Admin policy if need be, but can also have only limited rights to only be able to deploy API + related resources)
 
 With those environment variables set, _Serverless_ can now deploy to AWS using this IAM user.
+
+**Note:** everything contained in single curly brackets (`{ }`) needs to be replaced by your desired values
