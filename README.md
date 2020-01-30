@@ -28,15 +28,15 @@ You can use the following code as a new _GitHub Actions Workflow_:
 name: {YOUR-ACTION-NAME}
 on: [{YOUR-ACTION-EVENT}]
 jobs:
-  serverless:
+  {YOUR-JOB-NAME}:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: [{YOUR-STEP-NAME}]
+    - name: {YOUR-STEP-NAME}
       uses: kaskadi/action-slscli@master
       with:
-        command: {'whatever command you wanna run!'}
-        working_directory: {'the directory you want to execute the serverless cli in'}
+        command: '{SERVERLESS-CLI-COMMAND}'
+        working_directory: '{CLI-WORKING-DIRECTORY}'
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_KEY_SECRET }}
