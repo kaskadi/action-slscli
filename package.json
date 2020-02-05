@@ -21,7 +21,7 @@
     "url": "https://github.com/kaskadi/action-slscli/issues"
   },
   "homepage": "https://github.com/kaskadi/action-slscli#readme",
-  "devDependencies": {
+  "dependencies": {
     "serverless": "^1.62.0"
   }
 }
