@@ -11,9 +11,15 @@ if (wd) {
   process.chdir(wd)
 }
 
+const throwControl = process.env.INPUT_SHOULD_THROW
+
 childProc.exec(`${pathToBin} ${command}`, (err, stdout, stderr) => {
   console.log(stdout)
   if (err !== null) {
-    console.log(stderr)
+    if (throwControl) {
+      throw err
+    } else {
+      console.log(stderr)
+    }
   }
 })

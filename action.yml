@@ -8,6 +8,10 @@ inputs:
   working_directory:
     description: 'Directory in which we should run the CLI'
     required: false
+  should_throw:
+    description: 'Define whether the action should throw an error on error'
+    required: false
+    default: false
 runs:
   using: 'node12'
   main: 'index.js'

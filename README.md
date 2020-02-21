@@ -39,6 +39,7 @@ jobs:
       with:
         command: '{SERVERLESS-CLI-COMMAND}'
         working_directory: '{CLI-WORKING-DIRECTORY}'
+        should_throw: '{ACTION-SHOULD-THROW}'
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_KEY_SECRET }}
@@ -50,3 +51,8 @@ Those are the credentials of an IAM user which can deploy the necessary resource
 With those environment variables set, _Serverless_ can now deploy to AWS using this IAM user.
 
 **Note:** everything contained in single curly brackets (`{ }`) needs to be replaced by your desired values
+
+**Inputs:**
+- `command`: **_required_**, _String_. The _Serverless_ command to be executed
+- `working_directory`: **_optional_**, _String_. The directory in which we want to execute this command (inside of the calling repository)
+- `should_throw`: **_optional_**, _Boolean_ default `false`. Define whether the action should throw on error
