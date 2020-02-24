@@ -6,4 +6,4 @@ provider:
 
 functions:
   hello:
-    handler: ../fail-handler.hello
+    handler: @handler.hello
