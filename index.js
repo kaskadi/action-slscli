@@ -13,6 +13,8 @@ if (wd) {
 
 const throwControl = process.env.INPUT_SHOULD_THROW
 
+console.log('HELLO')
+
 childProc.exec(`${pathToBin} ${command}`, (err, stdout, stderr) => {
   console.log(stdout)
   if (err !== null) {
