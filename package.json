@@ -30,5 +30,13 @@
     "mocha": "^7.0.1",
     "nyc": "^15.0.0",
     "standard": "^14.3.1"
+  },
+  "nyc": {
+    "reporter": [
+      "text",
+      "lcov",
+      "html"
+    ],
+    "report-dir": "./coverage"
   }
 }
