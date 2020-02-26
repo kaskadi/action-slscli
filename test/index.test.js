@@ -3,34 +3,35 @@ const childProc = require('child_process')
 const chai = require('chai')
 chai.should()
 
-describe('action-slscli', () => {
+describe('action-slscli', function () {
+  this.timeout(4000)
   it('should execute simple --version call', async () => {
     const test = await execMain({ command: '--version' })
     test.should.equal(true)
-  }).timeout(4000)
+  })
   it('should process command when given a working directory', async () => {
     const test = await execMain({ command: 'deploy --noDeploy', wd: 'test/test-wd-sls' })
     test.should.equal(true)
-  }).timeout(4000)
+  })
   describe('processes valid files', () => {
     it('should process command', async () => {
       const test = await execMain({ command: 'deploy --noDeploy', wd: 'test/valid-sls', shouldThrow: 'false' })
       test.should.equal(true)
-    }).timeout(4000)
+    })
     it('should not throw when enabling error catching', async () => {
       const test = await execMain({ command: 'deploy --noDeploy', wd: 'test/valid-sls', shouldThrow: 'true' })
       test.should.equal(true)
-    }).timeout(4000)
+    })
   })
   describe('processes valid files', () => {
     it('should process command when not enabling error catching', async () => {
       const test = await execMain({ command: 'deploy --noDeploy', wd: 'test/invalid-sls', shouldThrow: 'false' })
       test.should.equal(true)
-    }).timeout(4000)
+    })
     it('should throw when enabling error catching', async () => {
       const test = await execMain({ command: 'deploy --noDeploy', wd: 'test/invalid-sls', shouldThrow: 'true' })
       test.should.equal(false)
-    }).timeout(4000)
+    })
   })
 })
 
