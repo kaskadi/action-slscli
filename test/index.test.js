@@ -4,7 +4,7 @@ const chai = require('chai')
 chai.should()
 
 describe('action-slscli', function () {
-  this.timeout(4000)
+  this.timeout(10000)
   it('should execute simple --version call', async () => {
     const test = await execMain({ command: '--version' })
     test.should.equal(true)
