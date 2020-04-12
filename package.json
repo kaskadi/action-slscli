@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/kaskadi/action-slscli#readme",
   "dependencies": {
-    "serverless": "^1.67.0"
+    "serverless": "^1.67.3"
   },
   "devDependencies": {
     "chai": "^4.2.0",
