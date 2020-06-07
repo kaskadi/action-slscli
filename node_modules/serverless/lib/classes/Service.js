@@ -29,6 +29,7 @@ class Service {
     this.functions = {};
     this.resources = {};
     this.package = {};
+    this.disabledDeprecations = [];
 
     if (data) this.update(data);
   }
@@ -110,6 +111,7 @@ class Service {
     that.plugins = serverlessFile.plugins;
     that.resources = serverlessFile.resources;
     that.functions = serverlessFile.functions || {};
+    that.disabledDeprecations = serverlessFile.disabledDeprecations;
 
     // merge so that the default settings are still in place and
     // won't be overwritten
@@ -184,7 +186,7 @@ class Service {
     if (provider) {
       const stage = provider.getStage();
       this.getAllFunctions().forEach(funcName => {
-        _.forEach(this.getAllEventsInFunction(funcName), event => {
+        this.getAllEventsInFunction(funcName).forEach(event => {
           if (_.has(event, 'http') && !validAPIGatewayStageNamePattern.test(stage)) {
             throw new this.serverless.classes.Error(
               [

@@ -679,6 +679,51 @@ describe('#compileMethods()', () => {
     });
   });
 
+  it('should set authorizer config for a cognito user pool when given cognito arn object', () => {
+    awsCompileApigEvents.validated.events = [
+      {
+        functionName: 'First',
+        http: {
+          authorizer: {
+            name: 'authorizer',
+            type: 'COGNITO_USER_POOLS',
+            arn: {
+              'Fn::GetAtt': ['CognitoUserPool', 'Arn'],
+            },
+            scopes: ['myapp/read', 'myapp/write'],
+          },
+          integration: 'AWS',
+          path: 'users/create',
+          method: 'post',
+        },
+      },
+    ];
+
+    return awsCompileApigEvents.compileMethods().then(() => {
+      expect(
+        awsCompileApigEvents.serverless.service.provider.compiledCloudFormationTemplate.Resources
+          .ApiGatewayMethodUsersCreatePost.Properties.AuthorizationType
+      ).to.equal('COGNITO_USER_POOLS');
+
+      expect(
+        awsCompileApigEvents.serverless.service.provider.compiledCloudFormationTemplate.Resources
+          .ApiGatewayMethodUsersCreatePost.Properties.AuthorizationScopes
+      ).to.contain('myapp/read');
+
+      expect(
+        awsCompileApigEvents.serverless.service.provider.compiledCloudFormationTemplate.Resources
+          .ApiGatewayMethodUsersCreatePost.Properties.AuthorizerId.Ref
+      ).to.equal('AuthorizerApiGatewayAuthorizer');
+
+      expect(
+        awsCompileApigEvents.serverless.service.provider.compiledCloudFormationTemplate.Resources
+          .ApiGatewayMethodUsersCreatePost.Properties.Integration.RequestTemplates[
+          'application/json'
+        ]
+      ).to.not.match(/undefined/);
+    });
+  });
+
   it('should not scopes for a cognito user pool when given empty scopes array', () => {
     awsCompileApigEvents.validated.events = [
       {
@@ -1205,7 +1250,7 @@ describe('#compileMethods()', () => {
       });
     });
 
-    it('should use defined content-handling behavior', () => {
+    it('should use defined content-handling behavior (request)', () => {
       awsCompileApigEvents.validated.events = [
         {
           functionName: 'First',
@@ -1231,6 +1276,42 @@ describe('#compileMethods()', () => {
           awsCompileApigEvents.serverless.service.provider.compiledCloudFormationTemplate.Resources
             .ApiGatewayMethodUsersListGet.Properties.Integration.ContentHandling
         ).to.equal('CONVERT_TO_TEXT');
+      });
+    });
+
+    it('should use defined response content-handling behavior for 2XX only (response)', () => {
+      awsCompileApigEvents.validated.events = [
+        {
+          functionName: 'First',
+          http: {
+            method: 'GET',
+            path: 'users/list',
+            integration: 'AWS',
+            response: {
+              contentHandling: 'CONVERT_TO_BINARY',
+              statusCodes: {
+                200: {
+                  pattern: '',
+                },
+                400: {
+                  pattern: '400',
+                },
+              },
+            },
+          },
+        },
+      ];
+      return awsCompileApigEvents.compileMethods().then(() => {
+        expect(
+          awsCompileApigEvents.serverless.service.provider.compiledCloudFormationTemplate.Resources
+            .ApiGatewayMethodUsersListGet.Properties.Integration.IntegrationResponses[0]
+            .ContentHandling
+        ).to.equal('CONVERT_TO_BINARY');
+        expect(
+          awsCompileApigEvents.serverless.service.provider.compiledCloudFormationTemplate.Resources
+            .ApiGatewayMethodUsersListGet.Properties.Integration.IntegrationResponses[1]
+            .ContentHandling
+        ).to.equal(undefined);
       });
     });
 
