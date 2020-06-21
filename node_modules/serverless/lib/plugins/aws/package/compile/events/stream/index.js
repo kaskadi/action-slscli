@@ -23,7 +23,7 @@ class AwsCompileStreamEvents {
       return false;
     }
     const intrinsicFunctions = ['Fn::ImportValue', 'Ref', 'Fn::GetAtt', 'Fn::Sub', 'Fn::Join'];
-    return intrinsicFunctions.some(cfInstructionName => variable[cfInstructionName] !== undefined);
+    return intrinsicFunctions.some(cfInstructionName => variable[cfInstructionName]);
   }
 
   resolveInvalidDestinationPropertyErrorMessage(functionName, property) {
@@ -263,6 +263,11 @@ class AwsCompileStreamEvents {
             if (event.stream.bisectBatchOnFunctionError != null) {
               streamResource.Properties.BisectBatchOnFunctionError =
                 event.stream.bisectBatchOnFunctionError;
+            }
+
+            if (event.stream.maximumRecordAgeInSeconds) {
+              streamResource.Properties.MaximumRecordAgeInSeconds =
+                event.stream.maximumRecordAgeInSeconds;
             }
 
             if (event.stream.destinations) {
