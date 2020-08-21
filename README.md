@@ -1,5 +1,3 @@
-![](https://img.shields.io/github/workflow/status/kaskadi/action-slscli/update?label=dependencies%20updated&logo=npm)
-
 **CodeClimate**
 
 [![](https://img.shields.io/codeclimate/maintainability/kaskadi/action-slscli?label=maintainability&logo=Code%20Climate)](https://codeclimate.com/github/kaskadi/action-slscli)
