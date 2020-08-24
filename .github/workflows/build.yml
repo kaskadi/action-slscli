@@ -1,10 +1,14 @@
-name: testing
+name: build
 on:
-  push:
+  pull_request:
+    branches:
+      - 'master'
+      - 'dev'
+    types: [opened, reopened, edited, synchronize]
     paths:
-      - 'index.js'
+      - 'src/**'
       - 'test/**'
-      - '.github/workflows/testing.yml'
+      - 'package.json'
 jobs:
   coverage:
     runs-on: ubuntu-latest
@@ -16,8 +20,5 @@ jobs:
       uses: paambaati/codeclimate-action@v2.4.0
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.REPORTER_ID }}
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_KEY_SECRET }}
       with:
         coverageCommand: npm run coverage
-        coverageLocations: ./coverage/lcov.info:lcov

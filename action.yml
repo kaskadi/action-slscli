@@ -1,5 +1,5 @@
 name: 'action-slscli'
-description: 'Gives user the ability to use the serverless CLI inside of a GitHub Action'
+description: 'a GitHub Action that allows you to use the serverless CLI inside of GitHub Actions'
 inputs:
   command:
     description: 'Command we pass to our serverless CLI'
@@ -14,4 +14,5 @@ inputs:
     default: false
 runs:
   using: 'node12'
-  main: 'index.js'
+  pre: 'src/pre.js'
+  main: 'src/main.js'

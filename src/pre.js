@@ -1,8 +1,5 @@
-module.exports = () => {
-  if (!process.env.GITHUB_ACTIONS || process.env.GITHUB_REPOSITORY === 'kaskadi/action-slscli') {
-    return
-  }
-  const { spawnSync } = require('child_process')
+const { spawnSync } = require('child_process')
+if (process.env.GITHUB_ACTIONS && process.env.GITHUB_REPOSITORY !== 'kaskadi/action-slscli') {
   const callingRepo = process.cwd()
   process.chdir(__dirname)
   process.chdir('..')

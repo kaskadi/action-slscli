@@ -1,4 +1,3 @@
-require('./helpers/install-dependencies.js')()
 const childProc = require('child_process')
 // test if we're in a GitHub Actions context so we can still test locally how the action is behaving
 
