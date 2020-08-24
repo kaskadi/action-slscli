@@ -1,0 +1,33 @@
+name: build
+on:
+  pull_request:
+    branches:
+      - 'master'
+      - 'dev'
+    types: [opened, reopened, edited, synchronize]
+    paths:
+      - 'src/**'
+      - 'test/**'
+      - 'package.json'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install dependencies
+      run: npm i
+    - name: Test
+      run: npm test
+  # *** Can use this job instead when tests are properly in place and REPORTER_ID has been added to the secrets of 
+  # coverage:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - name: Install dependencies
+  #     run: npm i
+  #   - name: Coverage
+  #     uses: paambaati/codeclimate-action@v2.4.0
+  #     env:
+  #       CC_TEST_REPORTER_ID: ${{ secrets.REPORTER_ID }}
+  #     with:
+  #       coverageCommand: npm run coverage
