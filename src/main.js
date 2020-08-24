@@ -1,9 +1,8 @@
 const childProc = require('child_process')
-const path = require('path')
 // test if we're in a GitHub Actions context so we can still test locally how the action is behaving
 
 const root = process.env.GITHUB_ACTIONS && process.env.GITHUB_REPOSITORY !== 'kaskadi/action-slscli' ? '/home/runner/work/_actions/kaskadi/action-slscli/master/' : `${process.cwd()}/`
-const pathToBin = path.join(root, '..', 'node_modules/serverless/bin/serverless.js')
+const pathToBin = `${root}node_modules/serverless/bin/serverless.js`
 
 const command = process.env.INPUT_COMMAND || ''
 const wd = process.env.INPUT_WORKING_DIRECTORY
