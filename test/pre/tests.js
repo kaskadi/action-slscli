@@ -9,7 +9,7 @@ const pjson = require('../../package.json')
 const pkgDependencies = Object.keys(pjson.dependencies || {})
 
 describe('pre step', function () {
-  this.timeout(30000)
+  this.timeout(60000)
   beforeEach(function () {
     console.log('TEST INFO: removing dependencies before testing')
     for (const pkgDep of pkgDependencies) {
