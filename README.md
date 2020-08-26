@@ -43,14 +43,17 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_KEY_SECRET }}
 ```
 
-Before trying to trigger your new workflow, please set both `AWS_KEY_ID` and `AWS_KEY_SECRET` in the secrets of your repository.
-Those are the credentials of an IAM user which can deploy the necessary resources (can have Admin policy if need be, but can also have only limited rights to only be able to deploy API + related resources)
-
-With those environment variables set, _Serverless_ can now deploy to AWS using this IAM user.
-
 **Note:** everything contained in single curly brackets (`{ }`) needs to be replaced by your desired values
 
 **Inputs:**
-- `command`: **_required_**, _String_. The _Serverless_ command to be executed
-- `working_directory`: **_optional_**, _String_. The directory in which we want to execute this command (inside of the calling repository)
-- `should_throw`: **_optional_**, _Boolean_ default `false`. Define whether the action should throw on error
+|        Input        | Required |   Default   | Description                                                                                    |
+|:-------------------:|:--------:|:-----------:|------------------------------------------------------------------------------------------------|
+|      `command`      |    Yes   | `--version` | Command to be run by `Serverless`.                                                             |
+| `working_directory` |    No    |             | Directory in which `Serverless` should run.                                                    |
+|    `should_throw`   |    No    |   `false`   | Define whether the action process should throw an error on `Serverless` error (exit code `1`). |
+
+**Environment variables:**
+|         Variable        | Required | Description                                                                                                                                                                                                  |
+|:-----------------------:|:--------:|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|   `AWS_ACCESS_KEY_ID`   |    Yes   | ID of a programmatic access AWS key attached to an IAM role which has required permissions to work with the `Serverless` configuration you defined. **Recommend implementing into repository secrets!**      |
+| `AWS_SECRET_ACCESS_KEY` |    Yes   | Secret of a programmatic access AWS key attached to an IAM role which has required permissions to work with the `Serverless` configuration you defined.  **Recommend implementing into repository secrets!** |
