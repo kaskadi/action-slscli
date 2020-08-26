@@ -2,14 +2,14 @@ name: 'action-slscli'
 description: 'a GitHub Action that allows you to use the serverless CLI inside of GitHub Actions'
 inputs:
   command:
-    description: 'Command we pass to our serverless CLI'
+    description: 'Command to be run by Serverless'
     required: true
     default: '--version'
   working_directory:
-    description: 'Directory in which we should run the CLI'
+    description: 'Directory in which Serverless should run'
     required: false
   should_throw:
-    description: 'Define whether the action should throw an error on error'
+    description: 'Define whether the action process should throw an error on Serverless error'
     required: false
     default: false
 runs:

@@ -1,25 +1,37 @@
-const childProc = require('child_process')
-// test if we're in a GitHub Actions context so we can still test locally how the action is behaving
+const { spawn } = require('child_process')
+const path = require('path')
+const core = require('@actions/core')
 
-const root = process.env.GITHUB_ACTIONS && process.env.GITHUB_REPOSITORY !== 'kaskadi/action-slscli' ? '/home/runner/work/_actions/kaskadi/action-slscli/master/' : `${process.cwd()}/`
-const pathToBin = `${root}node_modules/serverless/bin/serverless.js`
+async function main () {
+  const pathToBin = path.join(__dirname, '..', 'node_modules/serverless/bin/serverless.js')
+  const command = core.getInput('command')
+  const wd = core.getInput('working_directory')
 
-const command = process.env.INPUT_COMMAND || ''
-const wd = process.env.INPUT_WORKING_DIRECTORY
+  if (wd.length > 0) {
+    process.chdir(wd)
+  }
 
-if (wd) {
-  process.chdir(wd)
+  let throwControl = core.getInput('should_throw')
+  throwControl = throwControl.length > 0 ? JSON.parse(throwControl) : false
+
+  await new Promise((resolve, reject) => {
+    const proc = spawn(pathToBin, command.split(' '))
+    proc.stdout.on('data', log)
+    proc.stderr.on('data', log)
+    proc.on('error', console.log)
+    proc.on('exit', code => {
+      if (code !== 0 && throwControl) {
+        reject(new Error(code))
+      }
+      resolve(code)
+    })
+  })
 }
 
-const throwControl = process.env.INPUT_SHOULD_THROW ? JSON.parse(process.env.INPUT_SHOULD_THROW) : false // /!\ inputs are always string since they are environment variables
+function log (data) {
+  console.log(data.toString().trim())
+}
 
-childProc.exec(`${pathToBin} ${command}`, (err, stdout, stderr) => {
-  console.log(stdout)
-  if (err !== null) {
-    if (throwControl) {
-      throw err
-    } else {
-      console.log(stderr)
-    }
-  }
+main().catch(() => {
+  process.exit(1)
 })
