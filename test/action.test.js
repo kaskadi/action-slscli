@@ -5,6 +5,9 @@ const chai = require('chai')
 chai.should()
 
 describe('action-slscli', function () {
+  // ******* DO NOT REMOVE THIS TEST!
+  require('./pre/tests.js')
+  // *******
   this.timeout(10000)
   it('should execute simple --version call', async () => {
     const test = runAction(steps, { command: '--version' })
