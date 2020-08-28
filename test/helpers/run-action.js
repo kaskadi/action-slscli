@@ -2,17 +2,11 @@ const { spawn } = require('child_process')
 const path = require('path')
 
 module.exports = async (steps) => {
-  let results = []
   for (const step of steps) {
-    await runStep(step)
-      .then(() => {
-        results = [...results, true]
-      })
-      .catch(() => {
-        results = [...results, false]
-      })
+    await runStep(step).catch(() => {
+      throw new Error('An error occured while running your action...')
+    })
   }
-  return results.filter(result => result).length === results.length
 }
 
 function runStep (step) {
