@@ -23,7 +23,7 @@ function test (inputs, result) {
     for (const input in inputs) {
       process.env[`INPUT_${input.toUpperCase()}`] = inputs[input]
     }
-    const testResult = await runAction(steps)
+    const testResult = await runAction(steps).then(() => true).catch(() => false)
     testResult.should.equal(result)
   }
 }
