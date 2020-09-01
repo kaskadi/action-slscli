@@ -14,11 +14,7 @@
 
 # What is this action for?
 
-It allows you to use the _Serverless CLI_ inside of GitHub Actions.
-
-**Attention:** this action does not include error handling to avoid blocking a workflow because of a non blocking error thrown by _Serverless_. For example _Invalid stage identifier_ errors which occur when deploying an API without resources but does not prevent the API from effectively being created.
-
-You are therefore responsible for ensuring that your _Serverless_ configuration files are exempt of error (_hint_: you can use `sls deploy --noDeploy` command locally to see any error that may occur)
+a GitHub Action that allows you to use the serverless CLI inside of GitHub Actions
 
 # How to use it?
 
@@ -35,25 +31,20 @@ jobs:
     - name: {YOUR-STEP-NAME}
       uses: kaskadi/action-slscli@master
       with:
-        command: '{SERVERLESS-CLI-COMMAND}'
-        working_directory: '{CLI-WORKING-DIRECTORY}'
-        should_throw: '{ACTION-SHOULD-THROW}'
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_KEY_SECRET }}
+        command: {COMMAND-VALUE}
+        working_directory: {WORKING_DIRECTORY-VALUE}
+        should_throw: {SHOULD_THROW-VALUE}
 ```
 
 **Note:** everything contained in single curly brackets (`{ }`) needs to be replaced by your desired values
 
 **Inputs:**
-|        Input        | Required |   Default   | Description                                                                                    |
-|:-------------------:|:--------:|:-----------:|------------------------------------------------------------------------------------------------|
-|      `command`      |    Yes   | `--version` | Command to be run by `Serverless`.                                                             |
-| `working_directory` |    No    |             | Directory in which `Serverless` should run.                                                    |
-|    `should_throw`   |    No    |   `false`   | Define whether the action process should throw an error on `Serverless` error (exit code `1`). |
+|        Input        | Required |   Default   | Description                                                                 |
+| :-----------------: | :------: | :---------: | :-------------------------------------------------------------------------- |
+|      `command`      |  `true`  | `--version` | Command to be run by Serverless                                             |
+| `working_directory` |  `false` |             | Directory in which Serverless should run                                    |
+|    `should_throw`   |  `false` |             | Define whether the action process should throw an error on Serverless error |
 
-**Environment variables:**
-|         Variable        | Required | Description                                                                                                                                                                                                  |
-|:-----------------------:|:--------:|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|   `AWS_ACCESS_KEY_ID`   |    Yes   | ID of a programmatic access AWS key attached to an IAM role which has required permissions to work with the `Serverless` configuration you defined. **Recommend implementing into repository secrets!**      |
-| `AWS_SECRET_ACCESS_KEY` |    Yes   | Secret of a programmatic access AWS key attached to an IAM role which has required permissions to work with the `Serverless` configuration you defined.  **Recommend implementing into repository secrets!** |
+**Attention:** this action does not include error handling to avoid blocking a workflow because of a non blocking error thrown by _Serverless_. For example _Invalid stage identifier_ errors which occur when deploying an API without resources but does not prevent the API from effectively being created.
+
+You are therefore responsible for ensuring that your _Serverless_ configuration files are exempt of error (_hint_: you can use `sls deploy --noDeploy` command locally to see any error that may occur)
