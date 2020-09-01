@@ -1,5 +1,5 @@
 name: 'action-slscli'
-description: 'a GitHub Action that allows you to use the serverless CLI inside of GitHub Actions'
+description: 'This action allows you to use the _Serverless CLI_ inside of GitHub Actions.'
 inputs:
   command:
     description: 'Command to be run by Serverless'
@@ -9,9 +9,16 @@ inputs:
     description: 'Directory in which Serverless should run'
     required: false
   should_throw:
-    description: 'Define whether the action process should throw an error on Serverless error'
+    description: 'Define whether the action process should throw an error on `Serverless` error (exit code `1`)'
     required: false
     default: false
+env:
+  AWS_ACCESS_KEY_ID:
+    description: 'ID of a programmatic access AWS key attached to an IAM role which has required permissions to work with the `Serverless` configuration you defined. **Recommend implementing into repository secrets!**'
+    required: true
+  AWS_SECRET_ACCESS_KEY:
+    description: 'Secret of a programmatic access AWS key attached to an IAM role which has required permissions to work with the `Serverless` configuration you defined.  **Recommend implementing into repository secrets!**'
+    required: true
 runs:
   using: 'node12'
   pre: 'src/pre.js'
