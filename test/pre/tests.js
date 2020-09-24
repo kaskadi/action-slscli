@@ -1,6 +1,7 @@
 /* eslint-env mocha */
 const runAction = require('../helpers/run-action.js')
 const { spawnSync } = require('child_process')
+const { writeFileSync } = require('fs')
 const chai = require('chai')
 const { assert } = require('chai')
 chai.should()
@@ -9,12 +10,15 @@ const pjson = require('../../package.json')
 const pkgDependencies = Object.keys(pjson.dependencies || {})
 
 describe('pre step', function () {
-  this.timeout(60000)
+  this.timeout(30000)
   beforeEach(function () {
     console.log('TEST INFO: removing dependencies before testing')
-    for (const pkgDep of pkgDependencies) {
-      spawnSync('npm', ['rm', '--no-save', pkgDep], { stdio: 'inherit' })
-    }
+    const tempPjson = { ...pjson }
+    delete tempPjson.dependencies
+    delete tempPjson.devDependencies
+    writeFileSync('../../package.json', JSON.stringify(tempPjson, null, 2), 'utf8')
+    spawnSync('npm', ['i'], { stdio: 'inherit' })
+    writeFileSync('../../package.json', JSON.stringify(pjson, null, 2), 'utf8')
   })
   it('should install the action dependencies when ran from action folder', async function () {
     await test()
