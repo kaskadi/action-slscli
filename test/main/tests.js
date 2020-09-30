@@ -1,11 +1,13 @@
 /* eslint-env mocha */
 const runAction = require('../helpers/run-action.js')
-const steps = ['pre', 'main']
 const chai = require('chai')
 chai.should()
 
 describe('main step', function () {
   this.timeout(30000)
+  before(async () => {
+    await runAction(['pre'])
+  })
   it('should execute simple --version call', test({ command: '--version' }, true))
   it('should process command when given a working directory', test({ command: 'deploy --noDeploy', working_directory: 'test/test-wd-sls' }, true))
   describe('processes valid files', () => {
@@ -23,7 +25,7 @@ function test (inputs, result) {
     for (const input in inputs) {
       process.env[`INPUT_${input.toUpperCase()}`] = inputs[input]
     }
-    const testResult = await runAction(steps).then(() => true).catch(() => false)
+    const testResult = await runAction(['main']).then(() => true).catch(() => false)
     testResult.should.equal(result)
   }
 }
