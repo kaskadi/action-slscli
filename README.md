@@ -42,7 +42,7 @@ jobs:
 **Inputs:**
 |        Input        | Required |   Default   | Description                                                                                   |
 | :-----------------: | :------: | :---------: | :-------------------------------------------------------------------------------------------- |
-|      `command`      |  `true`  | `--version` | Command to be run by Serverless                                                               |
+|      `command`      |  `false` | `--version` | Command to be run by Serverless                                                               |
 | `working_directory` |  `false` |             | Directory in which Serverless should run                                                      |
 |    `should_throw`   |  `false` |             | Define whether the action process should throw an error on `Serverless` error (exit code `1`) |
 
