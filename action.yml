@@ -3,7 +3,7 @@ description: 'This action allows you to use the _Serverless CLI_ inside of GitHu
 inputs:
   command:
     description: 'Command to be run by Serverless'
-    required: true
+    required: false
     default: '--version'
   working_directory:
     description: 'Directory in which Serverless should run'
