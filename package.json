@@ -1,6 +1,6 @@
 {
   "name": "action-slscli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a GitHub Action that allows you to use the serverless CLI inside of GitHub Actions",
   "main": "action.yml",
   "scripts": {
